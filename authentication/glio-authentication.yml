@@ -1,0 +1,19 @@
+generated: '2026-07-19'
+method: searched
+source: openapi/glio-openapi-original.json
+docs: https://glio.io/docs/getting-started
+notes: >-
+  Single scheme. All endpoints require an Authorization: Bearer header carrying
+  either a Glio API key or a JWT. No OAuth 2.0 / OpenID Connect scope surface is
+  published; API keys are issued from the dashboard at https://glio.io/app/.
+summary:
+  types:
+  - http
+schemes:
+- name: BearerAuth
+  type: http
+  scheme: bearer
+  bearerFormat: API Key or JWT
+  description: 'API key or JWT token: `Bearer <your-token>`'
+  sources:
+  - openapi/glio-openapi-original.json
