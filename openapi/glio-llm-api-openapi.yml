@@ -1,0 +1,190 @@
+openapi: 3.1.0
+info:
+  title: Glio Jobs LLM API
+  description: Multi-provider AI media generation API with unified interface.
+  version: 1.0.0
+servers:
+- url: https://api.glio.io
+  description: Glio API
+security:
+- BearerAuth: []
+tags:
+- name: LLM
+  description: Synchronous text generation endpoints
+paths:
+  /v1/chat/completions:
+    post:
+      operationId: chatCompletions
+      summary: Create chat completion
+      description: OpenAI-compatible chat completions endpoint.
+      tags:
+      - LLM
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - model
+              - messages
+              properties:
+                model:
+                  type: string
+                  enum:
+                  - claude-opus-4-6
+                  - claude-opus-4-7
+                  - claude-opus-4-8
+                  - claude-sonnet-4-6
+                messages:
+                  type: array
+                  items:
+                    type: object
+                stream:
+                  type: boolean
+                  default: false
+                max_tokens:
+                  type: integer
+                  minimum: 1
+                temperature:
+                  type: number
+                  minimum: 0
+                  maximum: 2
+                tools:
+                  type: array
+                  items:
+                    type: object
+                tool_choice:
+                  oneOf:
+                  - type: string
+                  - type: object
+      responses:
+        '200':
+          description: Completion response
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  detail:
+                    type: string
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  detail:
+                    type: string
+        '429':
+          description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  detail:
+                    type: string
+        '500':
+          description: Provider error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  detail:
+                    type: string
+  /v1/embeddings:
+    post:
+      operationId: embeddings
+      summary: Create embeddings
+      description: OpenAI-compatible embeddings endpoint.
+      tags:
+      - LLM
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - model
+              - input
+              properties:
+                model:
+                  type: string
+                  enum: []
+                input:
+                  oneOf:
+                  - type: string
+                  - type: array
+                    items:
+                      type: string
+                dimensions:
+                  type: integer
+                  minimum: 1
+      responses:
+        '200':
+          description: Embedding response
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  detail:
+                    type: string
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  detail:
+                    type: string
+        '429':
+          description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  detail:
+                    type: string
+        '500':
+          description: Provider error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  detail:
+                    type: string
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: API Key or JWT
+      description: 'API key or JWT token: `Bearer <your-token>`'
