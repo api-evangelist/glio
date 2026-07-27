@@ -1,0 +1,31 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/glio-openapi-original.json
+note: >-
+  Standards conformance derived from the published OpenAPI and docs. Glio
+  publishes no third-party compliance certifications (SOC 2 / ISO 27001 / PCI /
+  HIPAA / FedRAMP) on its site, so no Compliance pointer is wired.
+standards:
+- id: openapi-3.1
+  conforms: true
+  evidence: openapi field is 3.1.0
+- id: openai-chat-completions-compat
+  conforms: true
+  evidence: /v1/chat/completions and /v1/embeddings follow the OpenAI-compatible schema
+- id: bearer-token-auth
+  conforms: true
+  evidence: securitySchemes.BearerAuth is http/bearer, applied globally
+- id: oauth2
+  conforms: false
+  evidence: no oauth2 security scheme declared
+- id: oidc
+  conforms: false
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: error responses use application/json, not application/problem+json
+- id: async-job-polling
+  conforms: true
+  evidence: 202 job creation with GET poll to a terminal state
+- id: offset-pagination
+  conforms: true
+  evidence: listJobs exposes limit + offset query parameters

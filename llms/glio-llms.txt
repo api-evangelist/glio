@@ -1,0 +1,169 @@
+# Glio API
+
+The most cost-effective unified API for AI media generation. One interface to 90+ models from multiple providers (Kling, Seedance 2, GPT Image 2, Veo3, Suno, ElevenLabs, and more).
+
+- Generate videos, images, and audio with a single API
+- Async workflow: create job -> poll -> get result
+- Pay per generation in GL tokens (1 GL = $0.01 USD)
+
+## Quick Start
+
+Base URL: https://api.glio.io
+Auth Header: Authorization: Bearer YOUR_API_KEY
+
+## Endpoints
+
+### Jobs API (requires auth)
+POST /v1/jobs - Create generation job
+  Body: {"model": "model-alias", "params": {...}}
+  Returns: {"id": "job_xxx", "status": "pending"}
+
+GET /v1/jobs/{id} - Get job status
+  Poll every 10-15s until status = "completed" or "failed"
+  Returns: {"id": "...", "status": "completed", "result": {...}}
+
+### LLM Sync API (requires auth)
+POST /v1/chat/completions - OpenAI-compatible chat completions (sync/stream)
+  Body: {"model": "gpt-5-2", "messages": [...], "stream": false}
+
+POST /v1/embeddings - OpenAI-compatible embeddings
+  Body: {"model": "...", "input": "text or text[]"}
+
+### Discovery API
+GET /v1/account/ - Get account balance and tier (requires auth)
+GET /v1/models/ - List models with filtering (?type=video&brand=kling)
+GET /v1/models/{id}/parameters/ - Localized model + action parameter schema for dynamic forms
+GET /v1/taxonomy/ - Category hierarchy for dynamic UI building
+POST /api/estimate-cost/ - Calculate exact cost for specific params
+
+## Model Parameters
+
+For exact parameters and example request for any model:
+https://api.glio.io/openapi/models/{model-alias}.json
+
+Example: https://api.glio.io/openapi/models/kling-v2.6-pro-t2v.json
+
+## Available Models
+
+### Video Generation
+- kling-3.0 - Kling 3.0 with single-shot and multi-shot generation modes.
+- kling-3.0-motion-control - Transfer motion from a reference video to a character image with Kl...
+- kling-v2.6-pro-t2v - High-end cinematic video generation with native audio support.
+- kling-v2.6-pro-i2v - High-end cinematic video from source image with native audio support.
+- kling-v2.6-motion-control - Transfer motion from a reference video to a character image
+- kling-v2.1-standard-i2v - Cost-effective video from images with the Standard tier
+- kling-v2.1-pro-i2v - High-quality video from images with the Pro tier
+- kling-v2.1-master-t2v - Premium quality video generation with the Master tier
+- kling-v2.1-master-i2v - Premium quality video from images with the Master tier
+- kling-v2.5-turbo-i2v - Fast video generation from source image. Optimized for physics and ...
+- kling-v2.5-turbo-t2v - Fast video generation optimized for physics and motion. No native a...
+- kling-avatar-pro - Premium lip sync video generation from image and audio (1080p)
+- kling-avatar-standard - Lip sync video generation from image and audio (720p)
+- grok-imagine-t2v - Generate videos from text prompts using Grok Imagine
+- grok-imagine-i2v - Generate videos from images using Grok Imagine
+- veo3-t2v - Google Veo 3.1 text-to-video generation with quality and fast modes
+- veo3-i2v - Google Veo 3.1 image-to-video generation. Use 1 image for dynamic e...
+- veo3-ref2v - Google Veo 3.1 reference-to-video generation. Generate videos based...
+- runway-t2v - Runway Gen-3 Alpha text-to-video generation with 5-10 second clips
+- runway-i2v - Runway Gen-3 Alpha image-to-video generation - animate your images
+- luma-ray2-v2v - Modify video using AI based on text prompt. Max 10s input video.
+- hailuo-02-standard-i2v - Budget-friendly image-to-video with duration and resolution control.
+- hailuo-02-pro-t2v - High-quality text-to-video generation with 1080p output.
+- hailuo-02-pro-i2v - High-quality image-to-video with start/end frame support.
+- hailuo-02-standard-t2v - Budget-friendly text-to-video generation with duration control.
+- hailuo-2.3-standard-i2v - Latest Hailuo 2.3 Standard with 1080p support at budget price.
+- hailuo-2.3-pro-i2v - Latest Hailuo 2.3 Pro with 1080p support and improved quality.
+- seedance-2 - ByteDance Seedance 2 video generation with optional start frame, en...
+- seedance-2-fast - ByteDance Seedance 2 Fast video generation for lower-cost, faster m...
+- seedance-v1.5-pro-t2v - High-quality text-to-video generation with optional audio.
+- seedance-v1.5-pro-i2v - High-quality image-to-video generation with optional audio. Support...
+- seedance-v1-pro-t2v - High-quality text-to-video generation with full parameter control.
+- seedance-v1-pro-i2v - High-quality image-to-video generation with full parameter control.
+- seedance-v1-pro-fast-i2v - Fast video generation from images with simplified parameters. Limit...
+- seedance-v1-lite-t2v - Budget-friendly text-to-video generation with good quality.
+- seedance-v1-lite-i2v - Budget-friendly image-to-video with start/end image support.
+- wan-2-7-t2v - High-fidelity text-to-video with optional audio sync, 2-15s duratio...
+- wan-2-7-i2v - Animate a starting image, optionally with a last-frame keyframe or ...
+- wan-2-6-t2v - High-quality video generation from text prompts with 5-15 second du...
+- wan-2-6-i2v - Generate videos from images with 5-15 second duration
+- wan-2-7-r2v - Generate video guided by up to 5 reference images and/or videos, wi...
+- wan-2-2-speech-to-video - Generate lip-synced video from image and audio
+- wan-2-6-v2v - Transform videos with text prompts, 5-10 second duration
+- wan-2-2-animate-move - Transfer motion from video to image
+- wan-2-2-turbo-t2v - Fast video generation from text with acceleration options
+- wan-2-2-animate-replace - Replace character in video with image
+- wan-2-2-turbo-i2v - Fast video generation from image with acceleration options
+- topaz-video-upscale - AI-powered video upscaling up to 4x resolution
+- ltxv-2 - High-quality video generation with audio and up to 4K resolution.
+- ltxv-2-fast - Fast video generation with audio and up to 4K resolution.
+- happyhorse-1-0-t2v - Cinematic text-to-video generation with 3-15s duration and up to 10...
+- happyhorse-1-0-i2v - Animate a source image into 3-15s video with up to 1080p output
+- happyhorse-1-0-r2v - Generate video from prompt plus ordered reference images, with up t...
+- happyhorse-1-0-v2v-edit - Edit an input video with text instructions, optional references, an...
+
+### Image Generation
+- grok-imagine-t2i - Generate high-quality photorealistic images from text prompts using...
+- grok-imagine-i2i - Transform images with text prompts using Grok Imagine
+- nano-banana-2-t2i - Fast image generation with text rendering and Google Search grounding.
+- nano-banana-2-i2i - Fast image editing with multi-image input and Google Search grounding.
+- nano-banana-pro-t2i - High-quality image generation with sharp structural accuracy and pr...
+- nano-banana-pro-i2i - Image editing with inpainting, outpainting, and style transfer capa...
+- google-imagen4 - Google Imagen 4 text-to-image with Standard, Fast, and Ultra qualit...
+- gpt-image-2-t2i - Generate images from text prompts using GPT Image 2
+- gpt-image-2-i2i - Transform and edit images with text prompts using GPT Image 2
+- gpt-image-1.5-t2i - Generate photorealistic images from text prompts using GPT Image 1.5
+- gpt-image-1.5-i2i - Transform and edit images with text prompts using GPT Image 1.5
+- seedream-5-lite-t2i - Budget-friendly Seedream 5.0 Lite text-to-image from ByteDance.
+- seedream-5-lite-edit - Budget-friendly Seedream 5.0 Lite image editing from ByteDance.
+- seedream-4-5-text-to-image - Latest Seedream 4.5 with premium image quality from ByteDance.
+- seedream-4-5-edit - Latest Seedream 4.5 image editing with premium quality from ByteDance.
+- bytedance-seedream-v4-text-to-image - ByteDance Seedream v4 with enhanced image quality and resolution op...
+- bytedance-seedream-v4-edit - ByteDance Seedream v4 image editing with enhanced quality and resol...
+- bytedance-seedream - High-quality image generation from ByteDance Seedream v3.
+- qwen2-t2i - Qwen Image 2 generation with native 2K output and text rendering
+- qwen2-image-edit - Natural language image editing with Qwen Image 2
+- qwen-t2i - Qwen image generation from text prompts
+- qwen-i2i - Transform images with text prompts
+- qwen-image-edit - Edit images with natural language instructions
+- topaz-image-upscale - AI-powered image upscaling with Topaz technology. Upscale images up...
+- ideogram-v3-reframe - Reframe images to different aspect ratios with AI-generated fill
+- ideogram-character - Generate images featuring a character from a reference photo
+- ideogram-character-edit - Edit images with character-consistent inpainting using a mask
+- ideogram-character-remix - Remix an image with a consistent character from a reference photo
+- recraft-crisp-upscale - AI-powered crisp image upscaling by Recraft
+- recraft-remove-background - AI-powered background removal by Recraft
+- flux-2-pro-t2i - High-quality text-to-image generation with Flux 2 Pro
+- flux-2-pro-i2i - Transform and edit images with Flux 2 Pro
+- flux-2-flex-t2i - Flexible text-to-image generation with Flux 2 Flex
+- flux-2-flex-i2i - Flexible image transformation with Flux 2 Flex
+
+### Audio Generation
+- suno - AI-powered music generation with multi-track output and custom styl...
+- suno-add-vocals - Add vocal singing to existing audio files
+- suno-add-instrumental - Add instrumental accompaniment to existing audio
+- suno-lyrics - AI-powered lyrics generation with multiple variations
+- suno-sounds - Generate sound effects, ambient audio, and instrument samples from ...
+- elevenlabs-tts-multilingual - High-quality multilingual text-to-speech with 21 voices and adjusta...
+- elevenlabs-tts-turbo - Fast, low-latency text-to-speech with language enforcement support
+- elevenlabs-sfx - AI-generated sound effects from text descriptions with looping and ...
+
+### Text Generation
+- claude-opus-4-8 - Anthropic flagship model for advanced reasoning and agentic workflows.
+- claude-opus-4-7 - Anthropic flagship model for advanced reasoning and agentic workflows.
+- claude-opus-4-6 - Anthropic flagship model for advanced reasoning and agentic workflows.
+- claude-sonnet-4-6 - Fast, capable Anthropic model for everyday coding and reasoning tasks.
+
+## Source of Truth
+
+OpenAPI specs are the single source of truth for parameters.
+- Full spec: https://api.glio.io/openapi.json
+- Per-model: https://api.glio.io/openapi/models/{model-alias}.json
+
+## Links
+
+- API Base URL: https://api.glio.io
+- Documentation: https://glio.io/docs/
+- Dashboard: https://glio.io/app/
+
+---
+Generated: 2026-07-19T10:41:24Z

@@ -1,0 +1,8 @@
+generated: '2026-07-19'
+method: derived
+source: arazzo/*.yml
+workflows:
+- file: glio-generate-media.yml
+  workflowId: generateMediaAndGetResult
+  title: Generate media and retrieve result
+  summary: Create a Glio generation job, poll to a terminal state, and return the result.

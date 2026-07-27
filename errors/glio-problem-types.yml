@@ -1,0 +1,43 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/glio-openapi-original.json
+format: json
+note: >-
+  Derived from the OpenAPI 4xx/5xx responses. Error bodies are declared as
+  application/json (not application/problem+json), and the spec ships no error
+  schema (components.schemas is empty), so this is a status-code catalog rather
+  than an RFC 9457 problem-type registry. Titles come from the response
+  descriptions in the spec.
+problems:
+- status: 400
+  title: Invalid request
+  meaning: Malformed request body or invalid parameters.
+  operations: [createJob, chatCompletions, embeddings]
+- status: 401
+  title: Authentication required
+  meaning: Missing or invalid Bearer API key / JWT.
+  operations: [createJob, listJobs, getJob, deleteJob, chatCompletions, embeddings]
+- status: 402
+  title: Insufficient credits
+  meaning: The account does not have enough GL token balance for the requested job.
+  operations: [createJob]
+- status: 403
+  title: Forbidden
+  meaning: The authenticated principal is not permitted to perform this action.
+  operations: [createJob]
+- status: 404
+  title: Model or resource not found
+  meaning: The referenced model, parent job, or job id does not exist.
+  operations: [createJob, getJob, deleteJob]
+- status: 409
+  title: Conflict
+  meaning: Only completed or failed jobs can be deleted.
+  operations: [deleteJob]
+- status: 429
+  title: Rate limit exceeded
+  meaning: Too many synchronous LLM requests in the current window.
+  operations: [chatCompletions, embeddings]
+- status: 500
+  title: Provider error
+  meaning: An upstream model provider returned an error.
+  operations: [chatCompletions, embeddings]

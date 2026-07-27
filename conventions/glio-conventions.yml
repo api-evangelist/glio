@@ -1,0 +1,45 @@
+generated: '2026-07-19'
+method: searched
+source: https://glio.io/docs/getting-started
+derived_from: openapi/glio-openapi-original.json
+authentication:
+  style: bearer
+  header: 'Authorization: Bearer <api-key-or-jwt>'
+  ref: authentication/glio-authentication.yml
+async_workflow:
+  pattern: create-job-poll-get-result
+  create: POST /v1/jobs returns 202 with an id and status pending
+  poll: GET /v1/jobs/{job_id} every 10-15 seconds until status is completed or failed
+  terminal_states: [completed, failed]
+pagination:
+  style: offset
+  params: [limit, offset]
+  filters: [status]
+  applies_to: GET /v1/jobs
+idempotency:
+  supported: false
+  note: >-
+    No idempotency-key header or parameter is documented in the OpenAPI or the
+    docs. Job creation is not declared idempotent. No Idempotency pointer is
+    wired for this provider.
+versioning:
+  scheme: uri-path
+  current: v1
+  ref: lifecycle/glio-lifecycle.yml
+rate_limiting:
+  signal: >-
+    A 429 (rate limit exceeded) is defined for the synchronous LLM endpoints
+    (/v1/chat/completions, /v1/embeddings). No numeric limits or rate-limit
+    response headers are documented.
+error_envelope:
+  content_type: application/json
+  rfc9457: false
+  ref: errors/glio-problem-types.yml
+openai_compatibility:
+  note: >-
+    /v1/chat/completions and /v1/embeddings follow the OpenAI request/response
+    shape, so OpenAI SDKs can target api.glio.io by swapping the base URL and key.
+billing:
+  unit: GL token
+  rate: 1 GL = $0.01 USD
+  model: pay-per-use, no subscription, no minimum

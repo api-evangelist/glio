@@ -1,0 +1,47 @@
+generated: '2026-07-19'
+method: derived
+status: candidate
+source: openapi/glio-openapi-original.json
+note: >-
+  Glio publishes no official hosted/remote MCP server (no entry in the MCP
+  registry, npm @modelcontextprotocol, or the docs). This is a candidate tool
+  list derived one-per-operation from the published OpenAPI, plus the discovery
+  endpoints documented in llms.txt. Not an official Glio server.
+server:
+  name: glio
+  transport: http
+tools:
+- name: create_job
+  description: Create an AI media generation job (video, image, or audio) for a given model.
+  source_operation: openapi/glio-openapi-original.json#createJob
+- name: list_jobs
+  description: List generation jobs with optional status filter and offset pagination.
+  source_operation: openapi/glio-openapi-original.json#listJobs
+- name: get_job
+  description: Get a job's status and result; poll until status is completed or failed.
+  source_operation: openapi/glio-openapi-original.json#getJob
+- name: delete_job
+  description: Delete a completed or failed job.
+  source_operation: openapi/glio-openapi-original.json#deleteJob
+- name: chat_completions
+  description: OpenAI-compatible chat completion (sync or stream).
+  source_operation: openapi/glio-openapi-original.json#chatCompletions
+- name: embeddings
+  description: OpenAI-compatible text embeddings.
+  source_operation: openapi/glio-openapi-original.json#embeddings
+tools_candidate_from_llms_txt:
+- name: get_account
+  description: Get account balance and tier. (documented in llms.txt, not in openapi.json)
+  source: 'GET /v1/account/'
+- name: list_models
+  description: List available models with type/brand filtering.
+  source: 'GET /v1/models/'
+- name: get_model_parameters
+  description: Get a model's parameter schema for dynamic forms.
+  source: 'GET /v1/models/{id}/parameters/'
+- name: get_taxonomy
+  description: Get the category hierarchy for UI building.
+  source: 'GET /v1/taxonomy/'
+- name: estimate_cost
+  description: Calculate exact GL-token cost for specific model params.
+  source: 'POST /api/estimate-cost/'

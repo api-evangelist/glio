@@ -1,0 +1,32 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Glio API
+  version: 1.0.0
+# Captures API Evangelist enrichment context over Glio's published OpenAPI.
+# The original spec is never mutated; the scorer parses the original.
+extends: openapi/glio-openapi-original.json
+actions:
+- target: $.info
+  update:
+    x-apievangelist-enriched: '2026-07-19'
+    x-api-style: async-job + openai-compatible-sync
+    x-auth: bearer-api-key-or-jwt
+    x-billing: pay-per-use GL tokens (1 GL = $0.01 USD)
+- target: $.info
+  update:
+    x-discovery-endpoints-not-in-spec:
+    - GET /v1/account/
+    - GET /v1/models/
+    - GET /v1/models/{id}/parameters/
+    - GET /v1/taxonomy/
+    - POST /api/estimate-cost/
+    x-note: >-
+      llms.txt documents discovery endpoints (account, models, taxonomy,
+      estimate-cost) that are absent from openapi.json; captured here so the
+      derived artifacts reflect the full documented surface.
+- target: $.paths['/v1/jobs'].get
+  update:
+    x-pagination: offset (limit + offset query params; status filter)
+- target: $.paths['/v1/jobs'].post
+  update:
+    x-async: 202 Accepted; poll GET /v1/jobs/{job_id} every 10-15s until status is completed or failed

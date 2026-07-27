@@ -1,22 +1,123 @@
 aid: glio
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/glio.png
 name: Glio
-description: Glio is a company surfaced as a portfolio company of a16z and added to the API Evangelist
-  network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+description: >-
+  Glio is a unified API for AI media generation that provides a single interface
+  to 90+ models across video, image, audio, and text from providers such as Kling,
+  ByteDance Seedance, Google Veo and Imagen, OpenAI GPT Image, Suno, ElevenLabs,
+  Runway, and Anthropic Claude. Developers create work via an asynchronous
+  job-based workflow (create job, poll, get result), and also call
+  OpenAI-compatible chat-completions and embeddings endpoints synchronously.
+  Billing is pay-per-use in GL tokens (1 GL = $0.01 USD) with no subscriptions or
+  minimums. Surfaced as an a16z portfolio company and enriched from Glio's public
+  developer surface at glio.io / api.glio.io.
 url: https://raw.githubusercontent.com/api-evangelist/glio/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - a16z
-x-tier: stub
+x-tier: enriched
 x-tier-reason: portfolio-lead
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-19'
 tags:
 - Company
-apis: []
+- AI
+- Machine Learning
+- Media Generation
+- Video Generation
+- Image Generation
+- Audio Generation
+- Text to Speech
+- Large Language Models
+- Generative AI
+- API Aggregator
+- Developer Tools
+apis:
+- aid: glio:glio-jobs-api
+  name: Glio Jobs API
+  description: Job creation and status management
+  humanURL: https://glio.io/docs/
+  baseURL: https://api.glio.io
+  tags:
+  - Jobs
+  properties:
+  - type: OpenAPI
+    url: openapi/glio-jobs-api-openapi.yml
+- aid: glio:glio-llm-api
+  name: Glio LLM API
+  description: Synchronous text generation endpoints
+  humanURL: https://glio.io/docs/
+  baseURL: https://api.glio.io
+  tags:
+  - LLM
+  properties:
+  - type: OpenAPI
+    url: openapi/glio-llm-api-openapi.yml
+common:
+- type: DomainSecurity
+  url: security/glio-domain-security.yml
+- type: AgenticAccess
+  url: agentic-access/glio-agentic-access.yml
+- type: Authentication
+  url: authentication/glio-authentication.yml
+- type: DeveloperPortal
+  url: https://glio.io/
+- type: Documentation
+  url: https://glio.io/docs/
+- type: APIReference
+  url: https://api.glio.io/openapi.json
+- type: GettingStarted
+  url: https://glio.io/docs/getting-started
+- type: Pricing
+  url: https://glio.io/pricing
+- type: SignUp
+  url: https://glio.io/app/
+- type: Support
+  url: https://glio.io/contact
+- type: TermsOfService
+  url: https://glio.io/legal/terms
+- type: PrivacyPolicy
+  url: https://glio.io/legal/privacy
+- type: LLMsTxt
+  url: llms/glio-llms.txt
+- type: MCPServer
+  url: mcp/glio-mcp.yml
+- type: ErrorCatalog
+  url: errors/glio-problem-types.yml
+- type: Conventions
+  url: conventions/glio-conventions.yml
+- type: Conformance
+  url: conformance/glio-conformance.yml
+- type: Lifecycle
+  url: lifecycle/glio-lifecycle.yml
+- type: DataModel
+  url: data-model/glio-data-model.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: Arazzo
+  name: Generate media and retrieve result
+  url: arazzo/glio-generate-media.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+x-enrichment:
+  date: '2026-07-19'
+  status: backfilled
+  pass: local-v1
+  note: backfilled from .gitignore signal + verified work evidence

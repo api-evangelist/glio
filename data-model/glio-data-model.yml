@@ -1,0 +1,36 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/glio-openapi-original.json
+note: >-
+  Entity graph derived from the OpenAPI operations and the object surface
+  documented in llms.txt. The spec's components.schemas is empty (models are
+  described per-model at /openapi/models/{alias}.json), so entities and fields
+  are inferred from operation bodies/parameters and the discovery endpoints.
+entities:
+- name: Job
+  description: An asynchronous media-generation task.
+  id_field: id
+  id_prefix: job_
+  fields:
+  - {name: id, note: 'e.g. job_xxx'}
+  - {name: status, note: 'pending | completed | failed'}
+  - {name: model, note: 'model alias, references Model.alias'}
+  - {name: params, note: 'model-specific parameters object'}
+  - {name: result, note: 'populated when status = completed'}
+  operations: [createJob, listJobs, getJob, deleteJob]
+- name: Model
+  description: A generation model exposed through the unified interface (90+ across video/image/audio/text).
+  id_field: alias
+  fields:
+  - {name: alias, note: 'e.g. kling-v2.6-pro-t2v'}
+  - {name: type, note: 'video | image | audio | text'}
+  - {name: brand, note: 'provider, e.g. kling, openai, google, bytedance'}
+  source: 'llms.txt / GET /v1/models/ (not in openapi.json)'
+- name: Account
+  description: The authenticated account's balance and tier.
+  fields:
+  - {name: balance, note: 'GL token balance'}
+  - {name: tier}
+  source: 'llms.txt / GET /v1/account/ (not in openapi.json)'
+relationships:
+- {from: Job, to: Model, type: belongs_to, via: model}

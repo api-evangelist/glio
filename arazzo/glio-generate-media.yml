@@ -1,0 +1,56 @@
+arazzo: 1.0.1
+info:
+  title: Glio - generate media and retrieve result
+  version: 1.0.0
+  description: >-
+    Create an AI media-generation job on Glio and poll until it completes, then
+    read the result. Uses Glio's asynchronous job workflow.
+sourceDescriptions:
+- name: glioApi
+  url: ../openapi/glio-openapi-original.json
+  type: openapi
+workflows:
+- workflowId: generateMediaAndGetResult
+  summary: Create a generation job, poll to completion, and return the result.
+  description: >-
+    Submits a media-generation job for a chosen model, polls job status every
+    10-15 seconds until it reaches a terminal state, and surfaces the result.
+  inputs:
+    type: object
+    properties:
+      model:
+        type: string
+        description: Model alias, e.g. kling-v2.6-pro-t2v
+      params:
+        type: object
+        description: Model-specific parameters (see /openapi/models/{alias}.json)
+    required: [model]
+  steps:
+  - stepId: createJob
+    description: Create the generation job.
+    operationId: createJob
+    requestBody:
+      contentType: application/json
+      payload:
+        model: $inputs.model
+        params: $inputs.params
+    successCriteria:
+    - condition: $statusCode == 202
+    outputs:
+      jobId: $response.body#/id
+  - stepId: getJob
+    description: Poll the job until it is completed or failed.
+    operationId: getJob
+    parameters:
+    - name: job_id
+      in: path
+      value: $steps.createJob.outputs.jobId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      status: $response.body#/status
+      result: $response.body#/result
+  outputs:
+    jobId: $steps.createJob.outputs.jobId
+    status: $steps.getJob.outputs.status
+    result: $steps.getJob.outputs.result

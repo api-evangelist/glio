@@ -1,0 +1,12 @@
+generated: '2026-07-19'
+method: generated
+source: openapi/glio-openapi-original.json
+skills:
+- file: glio-generate-media.md
+  name: Generate AI media with Glio
+  api: openapi/glio-openapi-original.json
+  operations: [createJob, getJob, deleteJob]
+- file: glio-chat-completion.md
+  name: Call an LLM through Glio (OpenAI-compatible)
+  api: openapi/glio-openapi-original.json
+  operations: [chatCompletions, embeddings]

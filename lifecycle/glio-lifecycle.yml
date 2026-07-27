@@ -1,0 +1,17 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/glio-openapi-original.json
+note: >-
+  Glio does not publish a dedicated versioning policy, deprecation policy, SLA,
+  or status page. The API is versioned in the URI path (v1). No StatusPage or
+  Deprecation pointer is wired because neither surface exists.
+versioning:
+  scheme: uri-path
+  current: v1
+deprecation:
+  policy_url: null
+  sunset_header: false
+sla:
+  url: null
+status_page: null
+deprecated_operations: []

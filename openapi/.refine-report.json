@@ -1,0 +1,16 @@
+{
+  "provider": "glio",
+  "sources": [
+    "glio-jobs-api-openapi.yml",
+    "glio-llm-api-openapi.yml"
+  ],
+  "outputs": [
+    "glio-jobs-api-openapi.yml",
+    "glio-llm-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
