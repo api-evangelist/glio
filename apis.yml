@@ -68,6 +68,8 @@ apis:
   - type: OpenAPI
     url: openapi/glio-llm-api-openapi.yml
 common:
+- type: Overlay
+  url: overlays/glio-openapi-overlay.yaml
 - type: DomainSecurity
   url: security/glio-domain-security.yml
 - type: AgenticAccess
