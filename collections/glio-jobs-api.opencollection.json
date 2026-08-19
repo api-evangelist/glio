@@ -1,0 +1,108 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Glio Jobs API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Jobs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List jobs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.glio.io/v1/jobs",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of jobs to return (max 100)"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of jobs to skip"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by job status"
+              }
+            ]
+          },
+          "docs": "List all jobs for the authenticated user."
+        },
+        {
+          "info": {
+            "name": "Create a new job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.glio.io/v1/jobs",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submit a job for AI media generation. Returns 202 Accepted with job details.\n\n**Note:** Either `model` or `parent_job_id` is required. Chain actions (extend, upscale, vary) can inherit model from parent job."
+        },
+        {
+          "info": {
+            "name": "Get job status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.glio.io/v1/jobs/:job_id",
+            "params": [
+              {
+                "name": "job_id",
+                "value": "",
+                "type": "path",
+                "description": "Job ID (UUID)"
+              }
+            ]
+          },
+          "docs": "Retrieve job details including status, result, and available actions."
+        },
+        {
+          "info": {
+            "name": "Delete job",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.glio.io/v1/jobs/:job_id",
+            "params": [
+              {
+                "name": "job_id",
+                "value": "",
+                "type": "path",
+                "description": "Job ID (UUID)"
+              }
+            ]
+          },
+          "docs": "Soft-delete a completed or failed job from user-visible history and remove stored media files."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -2,11 +2,9 @@ generated: '2026-07-19'
 method: derived
 status: candidate
 source: openapi/glio-openapi-original.json
-note: >-
-  Glio publishes no official hosted/remote MCP server (no entry in the MCP
-  registry, npm @modelcontextprotocol, or the docs). This is a candidate tool
-  list derived one-per-operation from the published OpenAPI, plus the discovery
-  endpoints documented in llms.txt. Not an official Glio server.
+note: Glio publishes no official hosted/remote MCP server (no entry in the MCP registry, npm @modelcontextprotocol,
+  or the docs). This is a candidate tool list derived one-per-operation from the published OpenAPI, plus
+  the discovery endpoints documented in llms.txt. Not an official Glio server.
 server:
   name: glio
   transport: http
@@ -32,16 +30,22 @@ tools:
 tools_candidate_from_llms_txt:
 - name: get_account
   description: Get account balance and tier. (documented in llms.txt, not in openapi.json)
-  source: 'GET /v1/account/'
+  source: GET /v1/account/
 - name: list_models
   description: List available models with type/brand filtering.
-  source: 'GET /v1/models/'
+  source: GET /v1/models/
 - name: get_model_parameters
   description: Get a model's parameter schema for dynamic forms.
-  source: 'GET /v1/models/{id}/parameters/'
+  source: GET /v1/models/{id}/parameters/
 - name: get_taxonomy
   description: Get the category hierarchy for UI building.
-  source: 'GET /v1/taxonomy/'
+  source: GET /v1/taxonomy/
 - name: estimate_cost
   description: Calculate exact GL-token cost for specific model params.
-  source: 'POST /api/estimate-cost/'
+  source: POST /api/estimate-cost/
+deployment:
+  mode: none
+  verified: derived
+  tools: 6
+  checked: '2026-08-12'
+  source: catalog MCP census
