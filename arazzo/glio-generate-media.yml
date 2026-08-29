@@ -6,8 +6,8 @@ info:
     Create an AI media-generation job on Glio and poll until it completes, then
     read the result. Uses Glio's asynchronous job workflow.
 sourceDescriptions:
-- name: glioApi
-  url: ../openapi/glio-openapi-original.json
+- name: jobsApi
+  url: ../openapi/glio-jobs-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: generateMediaAndGetResult
