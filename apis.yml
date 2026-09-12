@@ -96,6 +96,8 @@ apis:
   - type: OpenAPI
     url: openapi/glio-llm-api-openapi.yml
 common:
+- type: Website
+  url: https://glio.io/
 - type: Overlay
   url: overlays/glio-openapi-overlay.yaml
 - type: DomainSecurity
