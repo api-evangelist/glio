@@ -55,7 +55,7 @@ tags:
 - Image-Generation
 - Audio Generation
 - Text-to-Speech
-- Large Language Models
+- LLM
 - Generative AI
 - API Aggregator
 - Developer Tools
