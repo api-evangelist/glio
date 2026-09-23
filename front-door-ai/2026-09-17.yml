@@ -1,0 +1,36 @@
+# Front Door AI Index — glio — 2026-09-17
+# AI vocabulary counted on the provider's root page. Generated; do not edit.
+# `score` is null unless ownership is `own` — see front_door_ai.py.
+front_door_ai:
+  slug: glio
+  lexicon_version: '1.0'
+  probed_at: '2026-09-17'
+  host: glio.io
+  final_host: glio.io
+  ownership: own
+  owner: glio
+  shares_host_with: null
+  inherited_from: null
+  verdict: scored
+  score: 109
+  host_score: 109
+  density: 35.0
+  words: 3114
+  tiers:
+    agentic: 27
+    core: 32
+    model: 50
+  ambiguous: 1
+  top_terms:
+    AI: 31
+    prompts: 21
+    GPT: 15
+    Gemini: 11
+    OpenAI: 11
+    Anthropic: 7
+    Claude: 6
+    agentic: 4
+    LLMs: 1
+    agent: 1
+    fine-tune: 1
+    llms.txt: 1
