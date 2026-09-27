@@ -49,10 +49,10 @@ modified: '2026-07-19'
 tags:
 - Company
 - Artificial Intelligence
-- Machine-Learning
+- Machine Learning
 - Media Generation
 - Video Generation
-- Image-Generation
+- Image Generation
 - Audio Generation
 - Text-to-Speech
 - LLM
@@ -72,6 +72,8 @@ tags_raw:
 - Generative AI
 - API Aggregator
 - Developer Tools
+- Machine-Learning
+- Image-Generation
 apis:
 - aid: glio:glio-jobs-api
   name: Glio Jobs API
