@@ -1,0 +1,12 @@
+{
+ "url": "https://api.glio.io/openapi.json",
+ "requested_url": "https://api.glio.io/openapi.json",
+ "status": 200,
+ "content_type": "application/json",
+ "bytes": 13566,
+ "sha256": "f281902091991abe3223891d22701cae0b9737f830304b4ab1e9412a968dda72",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "equivalent",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the provider's current document describes the same operations (Jaccard 1.0), but the bytes differ, so the archive is an earlier or reformatted copy."
+}
