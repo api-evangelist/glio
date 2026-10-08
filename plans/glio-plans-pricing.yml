@@ -26,3 +26,19 @@ plans:
   currency: USD
   period: per-use
   unit: GL token
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - metered
+  units:
+  - token
+  plans:
+  - name: Pay-per-use
+    access: other
+    model: metered
+    model_how: derived
+    units:
+    - token
+    periods:
+    - other
